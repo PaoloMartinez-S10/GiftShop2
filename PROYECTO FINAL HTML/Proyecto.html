@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <title>GiftShop | Conectamos con tu empresa</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+     font-family: 'Inter', sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      line-height: 1.6;
+      opacity: 0; 
+      animation: fadeIn 0.8s ease forwards;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; 
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* === HEADER === */
+    header {
+      background: #fcccea;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header img.logo {
+      width: 360px;
+    }
+
+    /* === NAVBAR === */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: #971c72;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      display: inline-block;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 8px;
+      width: 0%;
+      height: 3px;
+      background: #fcccea;
+      border-radius: 10px;
+      transition: width 0.35s ease;
+    }
+
+    nav a:hover::after { width: 60%; }
+    nav a:hover { background: #002b66; }
+
+    /* DROPDOWN */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #971c72;
+      min-width: 200px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover { background-color: #002b66; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown:hover > a::after { width: 60%; }
+
+    /* === SECCIONES GENERALES === */
+    /* Contenedor principal para centrar contenido */
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 20px;
+      flex: 1; 
+    }
+
+    .intro { text-align: center; margin-bottom: 50px; }
+
+    .intro h2 {
+      color: #120b14;
+      margin-bottom: 15px;
+      font-size: 2.1rem;
+    }
+
+    /* Imagen central */
+    .hero-imagen {
+      text-align: center;
+      margin: 30px auto;
+    }
+
+    .hero-imagen img {
+      width: 100%;
+      max-height: 450px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    /* Botones */
+    .hero-botones {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 50px; 
+    }
+
+    .btn-hero {
+      background: #971c72;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn-hero:hover { background: #002b66; }
+
+    .btn-secundario { background: #002b66; }
+    .btn-secundario:hover { background: #000; }
+
+    /* === TARJETAS === */
+    .servicios {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .tarjeta {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(15px);
+      animation: subir 0.8s ease forwards;
+    }
+
+    .tarjeta:nth-child(1) { animation-delay: 0.1s; }
+    .tarjeta:nth-child(2) { animation-delay: 0.25s; }
+    .tarjeta:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes subir {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tarjeta:hover { transform: translateY(-5px) scale(1.02); }
+
+    .tarjeta img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .contacto-wrapper {
+        background: #f7f7f7; 
+        padding-bottom: 50px; 
+    }
+
+    .contacto {
+      background: #9a35b9; 
+      color: white;        
+      border-radius: 10px;
+      padding: 40px 20px;
+      text-align: center;
+      max-width: 1100px;
+      margin: 0 auto;      
+    }
+
+    .contacto h2 {
+        color: white;
+        margin-bottom: 15px;
+        font-size: 1.8rem;
+    }
+    
+    .contacto p {
+        margin: 5px 0;
+        font-size: 1rem;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: #160f1d;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header img.logo { width: 260px; }
+      .intro h2 { font-size: 1.7rem; }
+      .tarjeta img { max-width: 100%; }
+    }
+
+    
+
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.jpg.png" alt="Logo GiftShop" class="logo">
+  </header>
+  
+  <nav>
+    <a href="Proyecto.html">Inicio</a>
+    <a href="nosotros.html">Nosotros</a>
+
+    <div class="dropdown">
+      <a href="#">Servicios ▾</a>
+      <div class="dropdown-content">
+        <a href="Catering.html">Catering</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="">Productos ▾</a>
+      <div class="dropdown-content">
+        <a href="Box_Corporativos.html">Box corporativos</a>
+        <a href="Regalospersonalizados.html">Regalos personalizados</a>
+      </div>
+    </div>
+
+    <a href="Contactanos.html">Contáctanos</a>
+    <a href="javascript:void(0)" onclick="abrirFormulario()">Regístrate</a>
+  </nav>
+
+<!-- Modal Newsletter  -->
+<div class="modal fade" id="modalNewsletter" tabindex="-1" aria-labelledby="newsletterLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border: none; border-radius: 15px; overflow: hidden;">
+      
+      <div class="row g-0">
+        <div class="col-md-5" style="background: linear-gradient(135deg, rgba(151, 28, 114, 0.9), rgba(252, 204, 234, 0.9)), url('Navidad.jpg'); background-size: cover; background-position: center; position: relative;">
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%;">
+            <img src="logo.jpg.png" alt="GiftShop Logo" style="width: 120px; margin-bottom: 15px; filter: brightness(1.2);">
+            <h3 style="color: white; font-weight: bold; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">
+              🎁 Regalos Únicos
+            </h3>
+            <p style="color: white; font-size: 0.95rem; padding: 0 20px; text-shadow: 1px 1px 4px rgba(0,0,0,0.3);">
+              Para empresas que marcan la diferencia
+            </p>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close" style="top: 15px; right: 15px; z-index: 10;"></button>
+          
+          <div class="p-4 p-md-5">
+            <div class="text-center mb-4">
+              <h4 style="color: #971c72; font-weight: bold; margin-bottom: 10px;">
+                ¡Únete a nuestra comunidad!
+              </h4>
+              <p style="color: #666; font-size: 0.95rem;">
+                Recibe ofertas exclusivas, tips corporativos y catálogos de productos premium
+              </p>
+            </div>
+
+            <!-- Mini Galería  -->
+            <div class="d-flex justify-content-center gap-2 mb-4">
+              <img src="Navidad.jpg" alt="Producto 1" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+              <img src="img3.jpg.png" alt="Producto 2" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+              <img src="img4.jpg" alt="Producto 3" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            </div>
+
+            <!-- Formulario Newsletter -->
+            <form action="https://formspree.io/f/myzqqdpj" method="POST">
+              <input type="hidden" name="tipo" value="newsletter">
+              
+              <div class="mb-3">
+                <input type="text" name="nombre" class="form-control form-control-lg" placeholder="Nombre completo" required style="border: 2px solid #e0e0e0; border-radius: 8px;">
+              </div>
+
+              <div class="mb-3">
+                <input type="email" name="email" class="form-control form-control-lg" placeholder="Correo electrónico" required style="border: 2px solid #e0e0e0; border-radius: 8px;">
+              </div>
+
+              <div class="mb-3">
+                <input type="text" name="empresa" class="form-control form-control-lg" placeholder="Empresa (opcional)" style="border: 2px solid #e0e0e0; border-radius: 8px;">
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="aceptoTerminos" required style="border: 2px solid #971c72;">
+                <label class="form-check-label" for="aceptoTerminos" style="font-size: 0.85rem; color: #666;">
+                  Acepto recibir promociones y novedades de GiftShop
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-lg w-100" style="background: #971c72; color: white; border: none; border-radius: 8px; font-weight: 600; padding: 12px;">
+                Suscribirme 
+              </button>
+            </form>
+
+            <p class="text-center mt-3" style="font-size: 0.8rem; color: #999;">
+              Tu información está protegida con nosotros
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <div class="container">
+    
+    <section class="intro">
+      <h2>Nuestro arte es cuidar cada detalle</h2>
+      <p>
+        Ofrecemos soluciones corporativas en regalos empresariales diseñadas para fortalecer las relaciones y reflejar los valores de tu marca. <br>
+        Contamos con una plataforma propia, sin complicaciones logísticas, que te permite elegir entre una amplia variedad de productos, servicios y experiencias.
+      </p>
+    </section>
+
+    <div class="hero-imagen">
+        <img src="Imagen_Central.jpg" alt="Presentación GiftShop">
+    </div>
+
+    <section class="servicios">
+        <div class="tarjeta">
+          <img src="img2.jpg.jpg" alt="Regalos personalizados">
+          <h3>Regalos Personalizados</h3>
+          <p>Diseños exclusivos adaptados a la identidad de tu empresa.</p>
+        </div>
+    
+        <div class="tarjeta">
+          <img src="img3.jpg.png" alt="Box corporativos">
+          <h3>Box Corporativos</h3>
+          <p>Productos premium presentados con estilo para tus colaboradores.</p>
+        </div>
+    
+        <div class="tarjeta">
+          <img src="img4.jpg" alt="Desayunos sorpresa">
+          <h3>Desayunos sorpresa</h3>
+          <p>¡Sorprende y conquista con nuestros desayunos sorpresa!.</p>
+        </div>
+    </section>
+
+    <div class="hero-botones">
+        <a href="Contactanos.html" class="btn-hero">Diseñemos el Regalo Perfecto</a>
+        <a href="javascript:void(0)" onclick="abrirFormulario()" class="btn-hero btn-secundario">
+        Solicita una cotización 
+    </a>
+</div>    </div>
+
+  </div> <div class="contacto-wrapper">
+      <section class="contacto">
+        <h2>Haz que tu empresa deje huella con nosotros</h2>
+        <p>Llámanos: <strong>+51 990 054 672</strong></p>
+        <p>Escríbenos: <strong>contacto@GiftShop.com</strong></p>
+        <p>Ubícanos: <strong>Avenida José Pardo 1456 - Miraflores - Lima</strong></p>
+      </section>
+  </div>
+
+  <footer>
+    <p>© GiftShop 2025 | Conectamos con tu empresa - Todos los derechos reservados</p>
+  </footer>
+
+  <div id="formulario" 
+       style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;">
+    <div style="background:white; padding:30px; border-radius:10px; max-width:400px; width:90%; text-align:center;">
+      <h2 style="color:#971c72; margin-bottom:15px;">Formulario de registro</h2>
+
+
+
+      <form action="https://formspree.io/f/myzqqdpj" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre completo" required 
+         style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+  
+         <input type="email" name="email" placeholder="Correo electrónico" required 
+         style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+  
+          <textarea name="mensaje" placeholder="Mensaje" required 
+            style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc; resize:none;"></textarea>
+  
+          <button type="submit"
+          style="background:#971c72; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+          Enviar mensaje
+  </button>
+</form>
+
+      <br>
+      <button onclick="cerrarFormulario()" 
+              style="background:#ccc; border:none; padding:8px 20px; border-radius:5px; cursor:pointer;">Cerrar</button>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+  </script>
+  <script>
+    function abrirFormulario() {
+      document.getElementById('formulario').style.display = 'flex';
+    }
+    function cerrarFormulario() {
+      document.getElementById('formulario').style.display = 'none';
+    }
+
+    // Abrir modal automáticamente después de 3 segundos
+    window.addEventListener('load', function() {
+     setTimeout(function() {
+    var modalNewsletter = new bootstrap.Modal(document.getElementById('modalNewsletter'));
+    modalNewsletter.show();
+  }, 3000); // 3000 = 3 segundos
+    });
+
+  </script>
+</body>
+</html>

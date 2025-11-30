@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GiftShop | Catering Empresarial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f7f7f7;
+      color: #333;
+      margin: 0;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      opacity: 0; 
+      animation: aparecer 0.7s ease forwards;
+    }
+
+    @keyframes aparecer {
+      to { opacity: 1; }
+    }
+
+    main {
+      flex: 1;
+    }
+    
+    /* === HEADER & LOGO === */
+    header {
+      background: #fcccea;
+      text-align: center;
+      padding: 15px;
+    }
+
+    header img {
+      width: 250px;
+    }
+    
+    h1 {
+      color: #971c72;
+      text-align: center;
+      margin: 30px 0 10px;
+      font-size: 2.5em; 
+    }
+
+    /* --- NAVBAR MEJORADO --- */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: #971c72;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 25px;
+      display: inline-block;
+      position: relative;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    /* Barrita animada */
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0%;
+      height: 3px;
+      background: #fcccea;
+      border-radius: 5px;
+      transition: width 0.35s ease;
+    }
+
+    nav a:hover::after { width: 60%; }
+    nav a:hover { background: #7a145e; }
+
+    /* Dropdown */
+    .dropdown { position: relative; display: inline-block; }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #971c72;
+      min-width: 200px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover { background-color: #002b66; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown:hover > a { background-color: #7a145e; } 
+
+    /* === SERVICIOS GRID === */
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Más anchos */
+      gap: 30px; /* Mayor espacio */
+      max-width: 1100px;
+      margin: 20px auto 40px auto; 
+      padding: 0 20px;
+    }
+
+    .tarjeta {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+      text-align: center;
+      padding: 20px; 
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(15px);
+      animation: fadeTarjeta 0.8s ease forwards;
+      padding-bottom: 30px; 
+      height: 100%; /* Para que todas tengan la misma altura */
+    }
+
+    @keyframes fadeTarjeta {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .tarjeta:nth-child(1) { animation-delay: 0.1s; }
+    .tarjeta:nth-child(2) { animation-delay: 0.2s; }
+    .tarjeta:nth-child(3) { animation-delay: 0.3s; }
+    .tarjeta:nth-child(4) { animation-delay: 0.4s; }
+    .tarjeta:nth-child(5) { animation-delay: 0.5s; }
+    .tarjeta:nth-child(6) { animation-delay: 0.6s; }
+
+
+    .tarjeta:hover {
+      transform: translateY(-8px); 
+      box-shadow: 0 8px 20px rgba(151, 28, 114, 0.2);
+    }
+
+    .tarjeta img {
+      width: 100%;
+      max-width: 300px; 
+      height: 220px; /* Mayor altura para las imágenes */
+      object-fit: cover; 
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .tarjeta h3 {
+      color: #971c72;
+      margin: 10px 0;
+      font-size: 1.5em; /* Mayor tamaño */
+    }
+
+    .tarjeta p {
+      font-size: 1em;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    
+    /* === SECCIÓN DE CONTACTO (COHERENTE) === */
+  .contacto {
+    background: #9a35b9;
+    color: white;
+    border-radius: 20px;
+    padding: 40px 40px;
+    text-align: center;
+    width: 60%; 
+    max-width: 1300px; /* Aumenta el ancho máximo */
+    margin: 50px auto;
+  }
+
+  .contacto h2 {
+    color: white; 
+    margin-bottom: 15px;
+    font-size: 1.8em;
+  }
+
+    /* === FOOTER (BARRA OSCURA) === */
+    footer {
+      background: #160f1d;
+      color: #ccc;
+      text-align: center;
+      padding: 20px; 
+      width: 100%;
+      margin-top: 0; 
+    }
+
+    /* === MODAL ESTILOS === */
+    #formulario {
+      display:none; 
+      position:fixed; 
+      top:0; left:0; 
+      width:100%; 
+      height:100%;
+      background:rgba(0,0,0,0.6); 
+      justify-content:center; 
+      align-items:center; 
+      z-index:1000;
+    }
+
+    #formulario > div {
+        background:white; 
+        padding:30px; 
+        border-radius:10px; 
+        max-width:400px; 
+        width:90%; 
+        text-align:center;
+    }
+    
+    #formulario input, #formulario textarea {
+        width:100%; 
+        padding:10px; 
+        margin:10px 0; 
+        border-radius:5px; 
+        border:1px solid #ccc;
+    }
+    
+    #formulario button[type="submit"] {
+        background:#971c72; 
+        color:white; 
+        border:none; 
+        padding:10px 20px; 
+        border-radius:5px; 
+        cursor:pointer;
+    }
+
+    #formulario button:last-child {
+         background:#ccc; 
+         border:none; 
+         padding:8px 20px; 
+         border-radius:5px; 
+         cursor:pointer;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header img { width: 200px; }
+      .productos { grid-template-columns: 1fr; }
+      h1 { font-size: 2em; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <img src="logo.jpg.png" alt="Logo GiftShop">
+    </header>
+
+    <nav>
+      <a href="Proyecto.html">Inicio</a>
+      <a href="Nosotros.html">Nosotros</a>
+
+      <div class="dropdown">
+        <a href="javascript:void(0)">Servicios ▾</a>
+        <div class="dropdown-content">
+          <a href="catering.html">Catering</a>
+        </div>
+      </div>
+      
+      <div class="dropdown">
+        <a href="javascript:void(0)">Productos ▾</a>
+        <div class="dropdown-content">
+          <a href="Box_Corporativos.html">Box corporativos</a>
+          <a href="Regalospersonalizados.html">Regalos personalizados</a>
+        </div>
+      </div>
+      <a href="Contactanos.html">Contáctanos</a>
+      <a href="javascript:void(0)" onclick="abrirFormulario()">Registrate</a>
+    </nav>
+    
+    <h1>Servicios de Catering para Empresas</h1>
+
+    <section class="productos">
+      <div class="tarjeta">
+        <img src="desayuno1.jpg.jpg" alt="Coffee Break Empresarial">
+        <h3>1. Coffee Breaks</h3>
+        <p>Servicios completos de café, té, jugos, pastelería y bocaditos salados. Perfecto para reuniones y capacitaciones cortas.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="desayuno2.jpg.jpg" alt="Brunch Ejecutivo">
+        <h3>2. Brunch y Desayunos Ejecutivos</h3>
+        <p>Combinación de desayunos y almuerzos ligeros, ideal para eventos de media mañana con clientes o inversores.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="Almuerzo Saludable.jpg" alt="Almuerzos de Trabajo">
+        <h3>3. Almuerzos de Trabajo</h3>
+        <p>Menús variados, balanceados y saludables entregados en porciones individuales o servicio buffet para todo el equipo.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="desayuno3.jpg.jpg" alt="Cocteles Corporativos">
+        <h3>4. Cocteles y Recepciones</h3>
+        <p>Bocaditos gourmet, estaciones de comida y bebidas sofisticadas para eventos de lanzamiento o fin de año.</p>
+      </div>
+
+      <div class="tarjeta">
+        <img src="desayuno4.jpg.jpg" alt="Estaciones de Comida Temáticas">
+        <h3>5. Estaciones Temáticas Personalizadas</h3>
+        <p>Crea tu estación de tacos, postres, smoothies o comida internacional para una experiencia interactiva y divertida.</p>
+      </div>
+      
+      <div class="tarjeta">
+        <img src="Desayuno_Saludable.jpeg" alt="Catering Saludable">
+        <h3>6. Opciones Saludables y Especiales</h3>
+        <p>Menús veganos, vegetarianos, sin gluten y bajos en carbohidratos, asegurando que todos tus colaboradores disfruten.</p>
+      </div>
+    </section>
+  </main>
+
+  <section class="contacto">
+    <h2>Eleva tu evento con el mejor catering corporativo</h2>
+    <p>Llámanos: <strong>+51 990 054 672</strong></p>
+    <p>Escríbenos: <strong>contacto@GiftShop.com</strong></p>
+    <p>Ubícanos: <strong>Avenida José Pardo 1456 - Miraflores - Lima</strong></p>  
+  </section>
+
+  <footer>
+    <p>&copy; GiftShop 2025 | Conectamos con tu empresa - Todos los derechos reservados</p>
+  </footer>
+
+  <div id="formulario">
+    <div>
+      <h2 style="color:#971c72; margin-bottom:15px;">Formulario de registro</h2>
+     <form action="https://formspree.io/f/myzqqdpj" method="POST">
+  <input type="text" name="nombre" placeholder="Nombre completo" required 
+         style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+  
+  <input type="email" name="email" placeholder="Correo electrónico" required 
+         style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+  
+  <textarea name="mensaje" placeholder="Mensaje" required 
+            style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc; resize:none;"></textarea>
+  
+  <button type="submit"
+          style="background:#971c72; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+    Enviar mensaje
+  </button>
+</form>
+      <br>
+      <button onclick="cerrarFormulario()">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    function abrirFormulario() {
+      document.getElementById('formulario').style.display = 'flex';
+    }
+    function cerrarFormulario() {
+      document.getElementById('formulario').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

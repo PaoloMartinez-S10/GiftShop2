@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftShop | Nosotros</title>
+
+    <style>
+    /* === RESET GENERAL === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f7f7f7;
+        color: #333;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    main { flex: 1; }
+
+    header {
+        background: #fcccea;
+        text-align: center;
+        padding: 10px 20px;
+    }
+
+    header img.logo { width: 500px; }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        background: #971c72;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 25px;
+        display: block;
+        position: relative;
+        transition: background 0.3s; 
+    }
+    
+    .dropdown:hover > a {
+        background: #002b66; 
+    }
+
+    nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        height: 2px;
+        width: 0%;
+        background: #fcccea; 
+        transition: width .3s;
+    }
+
+    nav a:hover::after { width: 100%; }
+    
+    .dropdown { position: relative; }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #971c72;
+        min-width: 200px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        z-index: 100;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .dropdown-content a {
+        color: white;
+        padding: 12px 16px;
+        display: block;
+        text-align: left;
+    }
+    
+    .dropdown-content a:hover {
+        background-color: #002b66; 
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    @keyframes fadeIn {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-nosotros, .seccion-alternada, .valores, .contacto {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeIn 1s ease forwards;
+    }
+
+    .seccion-alternada:nth-child(1) { animation-delay: .3s; }
+    .seccion-alternada:nth-child(2) { animation-delay: .5s; }
+    .seccion-alternada:nth-child(3) { animation-delay: .7s; }
+    .valores { animation-delay: .9s; }
+    .contacto { animation-delay: 1.1s; }
+
+    .hero-nosotros {
+        background: linear-gradient(135deg, #971c72 0%, #9a35b9 100%);
+        color: white;
+        text-align: center;
+        padding: 60px 20px;
+    }
+    
+    .hero-nosotros h1 {
+        font-size: 3em; 
+        margin-bottom: 10px;
+    }
+    
+    .hero-nosotros p {
+        font-size: 1.2em;
+        opacity: 0.9;
+    }
+
+    /* === CONTENIDO PRINCIPAL === */
+    .contenido-nosotros {
+        max-width: 1100px;
+        margin: 60px auto;
+        padding: 0 20px;
+    }
+
+    .seccion-alternada {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        margin-bottom: 80px;
+    }
+
+    .seccion-alternada.inversa .texto-seccion {
+        order: 2;
+    }
+    .seccion-alternada.inversa .imagen-seccion {
+        order: 1;
+    }
+    
+    .texto-seccion h2 {
+        color: #971c72;
+        font-size: 2.2em;
+        margin-bottom: 20px;
+        border-left: 5px solid #9a35b9; 
+        padding-left: 15px;
+    }
+
+    .texto-seccion p {
+        font-size: 1.1em;
+        line-height: 1.7;
+        color: #555;
+    }
+
+    .imagen-seccion {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .imagen-seccion img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+    }
+
+    .imagen-seccion:hover img {
+        transform: scale(1.05);
+    }
+
+    .valores {
+        background: white;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .valores h2 {
+        color: #971c72;
+        font-size: 2.5em; 
+        margin-bottom: 40px;
+    }
+
+    .valores-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+        gap: 30px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .valor-card {
+        background: #fcf4f9; 
+        padding: 30px;
+        border-radius: 10px;
+        border-bottom: 5px solid #971c72;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .valor-card h3 {
+        color: #971c72;
+        margin-bottom: 10px;
+        font-size: 1.4em;
+    }
+
+    .valor-card:hover {
+        transform: translateY(-8px); 
+        box-shadow: 0 15px 30px rgba(151, 28, 114, 0.3);
+    }
+
+    .contacto {
+        background: #9a35b9;
+        color: white;
+        border-radius: 10px;
+        padding: 40px 20px; 
+        text-align: center;
+        max-width: 1100px;
+        margin: 50px auto;
+    }
+    
+    .contacto h2 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+
+    footer {
+        background: #160f1d;
+        color: #ccc;
+        text-align: center;
+        padding: 20px; 
+        font-size: 0.9em;
+    }
+
+
+    /* === MEDIA QUERIES === */
+    @media (max-width: 1000px) {
+        header img.logo { width: 400px; }
+        .hero-nosotros h1 { font-size: 2.5em; }
+    }
+    
+    @media (max-width: 768px) {
+        header img.logo { width: 300px; }
+        
+        nav { justify-content: space-around; }
+
+        .seccion-alternada {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .seccion-alternada.inversa .texto-seccion { order: 1; }
+        .seccion-alternada.inversa .imagen-seccion { order: 2; }
+        
+        .texto-seccion h2 { font-size: 1.8em; }
+    }
+    
+    @media (max-width: 480px) {
+        header img.logo { width: 250px; }
+        .hero-nosotros { padding: 40px 15px; }
+        .hero-nosotros h1 { font-size: 2em; }
+        .contenido-nosotros { margin: 30px auto; }
+        .seccion-alternada { margin-bottom: 40px; }
+    }
+
+
+    #formulario {
+    display:none; 
+
+    position:fixed; 
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%;
+    background:rgba(0,0,0,0.6); 
+    justify-content:center; 
+    align-items:center; 
+    z-index:1000;
+}
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <header>
+            <img src="logo.jpg.png" alt="Logo GiftShop" class="logo">
+        </header>
+
+        <nav>
+            <a href="Proyecto.html">Inicio</a>
+            <a href="Nosotros.html">Nosotros</a>
+
+            <div class="dropdown">
+                <a href="javascript:void(0)">Servicios ▾</a> 
+                <div class="dropdown-content">
+                    <a href="Catering.html">Catering</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="javascript:void(0)">Productos ▾</a> 
+                <div class="dropdown-content">
+                    <a href="Box_Corporativos.html">Box corporativos</a>
+                    <a href="Regalospersonalizados.html">Regalos personalizados</a>
+                </div>
+            </div>
+
+            <a href="Contactanos.html">Contáctanos</a>
+            <a href="javascript:void(0)" onclick="abrirFormulario()">Registrate</a>
+        </nav>
+
+        <section class="hero-nosotros">
+            <h1>Nuestra Historia</h1>
+            <p>Conectamos empresas con momentos inolvidables</p>
+        </section>
+
+        <div class="contenido-nosotros">
+            <div class="seccion-alternada">
+                <div class="texto-seccion">
+                    <h2>Nacidos en el corazón de Nuestros Fundadores</h2>
+                    <p>Somos una empresa que nació desde el corazón de nuestros fundadores, con la visión clara de transformar la forma en que las empresas expresan gratitud y construyen relaciones. Creemos que un regalo corporativo no es solo un objeto, sino un poderoso vehículo de conexión emocional y reconocimiento. </p>
+                </div>
+                <div class="imagen-seccion">
+                    <img src="Atardecer.jpg" alt="Nuestra sede">
+                </div>
+            </div>
+
+            <div class="seccion-alternada inversa">
+                <div class="texto-seccion">
+                    <h2>Nuestra Pasión por los Detalles</h2>
+                    <p>En GiftShop, el arte está en cuidar cada detalle. Desde la selección de productos premium hasta el packaging, nos aseguramos de que cada entrega sea una experiencia de marca memorable. Tu imagen corporativa es nuestra prioridad. Por eso, nos dedicamos a la distribución de regalos que realmente sorprenden y dejan huella, garantizando calidad en cada etapa del proceso.</p>
+                </div>
+                <div class="imagen-seccion">
+                    <img src="img3.jpg.png" alt="Productos personalizados">
+                </div>
+            </div>
+
+            <div class="seccion-alternada">
+                <div class="texto-seccion">
+                    <h2>Innovación y Simplicidad Logística</h2>
+                    <p>Contamos con una plataforma propia que elimina las complicaciones logísticas para las empresas. Elegir, personalizar y gestionar tus regalos corporativos nunca fue tan simple. Ofrecemos soluciones integrales de principio a fin, liberando a tu equipo de la carga operativa para que solo se concentre en disfrutar los resultados del impacto positivo de la gratitud.</p>
+                </div>
+                <div class="imagen-seccion">
+                    <img src="img4.jpg" alt="Plataforma digital">
+                </div>
+            </div>
+        </div>
+
+        <section class="valores">
+            <h2>Nuestros Valores</h2>
+            <div class="valores-grid">
+                <div class="valor-card">
+                    <h3>🎯 Compromiso</h3>
+                    <p>Nos comprometemos con la excelencia y la puntualidad en cada entrega.</p>
+                </div>
+                <div class="valor-card">
+                    <h3>💡 Creatividad</h3>
+                    <p>Diseñamos soluciones únicas y originales que reflejan la esencia de tu marca.</p>
+                </div>
+                <div class="valor-card">
+                    <h3>🤝 Confianza</h3>
+                    <p>Construimos relaciones duraderas basadas en la transparencia y la calidad.</p>
+                </div>
+                <div class="valor-card">
+                    <h3>🚀 Innovación</h3>
+                    <p>Estamos en constante evolución, usando tecnología para simplificar la gestión de regalos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contacto">
+            <h2>Haz que tu empresa deje huella con nosotros</h2>
+            <p>Llámanos: <strong>+51 990 054 672</strong></p>
+            <p>Escríbenos: <strong>contacto@GiftShop.com</strong></p>
+            <p>Ubícanos: <strong>Av. José Pardo 1456 - Miraflores - Lima</strong></p> 
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; GiftShop 2025 | Conectamos con tu empresa - Todos los derechos reservados</p>
+    </footer>
+
+      <div id="formulario" 
+       style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;">
+    <div style="background:white; padding:30px; border-radius:10px; max-width:400px; width:90%; text-align:center;">
+      <h2 style="color:#971c72; margin-bottom:15px;">Formulario de registro</h2>
+    <form action="https://formspree.io/f/myzqqdpj" method="POST">
+  <input type="text" name="nombre" placeholder="Nombre completo" required 
+         style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+  
+  <input type="email" name="email" placeholder="Correo electrónico" required 
+         style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;">
+  
+  <textarea name="mensaje" placeholder="Mensaje" required 
+            style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc; resize:none;"></textarea>
+  
+  <button type="submit"
+          style="background:#971c72; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+    Enviar mensaje
+  </button>
+</form>
+      <br>
+      <button onclick="cerrarFormulario()" 
+              style="background:#ccc; border:none; padding:8px 20px; border-radius:5px; cursor:pointer;">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    function abrirFormulario() {
+      document.getElementById('formulario').style.display = 'flex';
+    }
+    function cerrarFormulario() {
+      document.getElementById('formulario').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
